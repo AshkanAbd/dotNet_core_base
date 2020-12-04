@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
+        <PackageReference Include="FluentValidation.AspNetCore" Version="9.3.0" />
+        <PackageReference Include="Hangfire.AspNetCore" Version="1.7.18" />
+        <PackageReference Include="Hangfire.Core" Version="1.7.18" />
+        <PackageReference Include="Hangfire.PostgreSql" Version="1.8.1" />
+        <PackageReference Include="KavenegarDotNetCore" Version="1.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" NoWarn="NU1605" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.0" NoWarn="NU1605" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.0" />
+        <PackageReference Include="Parbad.Gateway.ZarinPal" Version="1.0.5" />
+        <PackageReference Include="Parbad.Storage.EntityFrameworkCore" Version="1.1.0" />
+        <PackageReference Include="PersianDateTime.Core" Version="1.0.8" />
+        <PackageReference Include="SoftDelete" Version="1.1.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Controllers" />
+      <Folder Include="Filters" />
+      <Folder Include="Migrations" />
+      <Folder Include="Seed" />
+      <Folder Include="Validators" />
+      <Folder Include="wwwroot" />
+    </ItemGroup>
+
+</Project>
