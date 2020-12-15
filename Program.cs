@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
+using dotNet_base.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace dotNet_base
 {
@@ -13,7 +11,29 @@ namespace dotNet_base
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            if (args.Length == 1 && args[0] == "seed") {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json");
+                var configuration = builder.Build();
+                Console.WriteLine("Starting to seed database...");
+                var databaseSeeder = new DatabaseSeeder();
+                databaseSeeder.Production = configuration["ComponentConfig:Environment"].ToLower() == "production";
+                databaseSeeder.InitSerivces();
+                databaseSeeder.Services.AddDbContext<BaseContext>(options => {
+                    options.UseNpgsql(databaseSeeder.Configuration.GetConnectionString("DefaultConnection"));
+                    if (databaseSeeder.Configuration["ComponentConfig:Environment"].Equals("Development")) {
+                        options.EnableSensitiveDataLogging();
+                    }
+                });
+                databaseSeeder.SetupServices();
+
+                var menoshContext = databaseSeeder.ServiceProvider.GetService<MenoshContext>();
+                databaseSeeder.StartWithDbContext(menoshContext);
+            }
+            else {
+                CreateHostBuilder(args).Build().Run();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
