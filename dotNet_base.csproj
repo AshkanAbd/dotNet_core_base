@@ -29,7 +29,6 @@
     <ItemGroup>
       <Folder Include="Filters" />
       <Folder Include="Migrations" />
-      <Folder Include="Seed" />
       <Folder Include="Validators" />
       <Folder Include="wwwroot" />
     </ItemGroup>
