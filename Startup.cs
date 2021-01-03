@@ -199,10 +199,10 @@ namespace dotNet_base
                 });
 
             services.AddAuthorization(config => {
-                config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
-                config.AddPolicy(Policies.User, Policies.UserPolicy());
-                config.AddPolicy(Policies.IncompleteUser, Policies.IncompleteUserPolicy());
-                config.AddPolicy(Policies.Owner, Policies.OwnerPolicy());
+                // config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
+                // config.AddPolicy(Policies.User, Policies.UserPolicy());
+                // config.AddPolicy(Policies.IncompleteUser, Policies.IncompleteUserPolicy());
+                // config.AddPolicy(Policies.Owner, Policies.OwnerPolicy());
             });
         }
 

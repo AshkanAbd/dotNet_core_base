@@ -1,8 +1,11 @@
 using System;
 using System.IO;
 using dotNet_base.Models;
+using dotNet_base.Seed;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace dotNet_base
@@ -28,7 +31,7 @@ namespace dotNet_base
                 });
                 databaseSeeder.SetupServices();
 
-                var menoshContext = databaseSeeder.ServiceProvider.GetService<MenoshContext>();
+                var menoshContext = databaseSeeder.ServiceProvider.GetService<BaseContext>();
                 databaseSeeder.StartWithDbContext(menoshContext);
             }
             else {
