@@ -21,7 +21,7 @@ namespace dotNet_base.Components.Filters
             _dbContext = dbContext;
         }
 
-        /*public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var authorizedUser = context.HttpContext.User;
             if (!authorizedUser.Identity.IsAuthenticated) {
@@ -124,6 +124,6 @@ namespace dotNet_base.Components.Filters
             if (authorizeAttributes.Count == 0) return null;
             var authorizeAttribute = authorizeAttributes[0];
             return authorizeAttribute.Policy;
-        }*/
+        }
     }
 }

@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Mime;
+using System.Security.Claims;
+using System.Text;
 using dotNet_base.Models;
 using dotNet_base.Components;
 using dotNet_base.Components.Extensions;
@@ -9,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace dotNet_base.Components.Extensions
 {
@@ -107,6 +111,26 @@ namespace dotNet_base.Components.Extensions
         protected JsonResult InternalErrorMsg(string msg = null)
         {
             return (this as IResponseExtension).InternalErrorMsg(msg);
+        }
+        
+        protected string GenerateJWTToken(ModelExtension model, DateTime expireDate)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ComponentConfig.Jwt.SecretKey));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+            var claims = new[] {
+                new Claim("id", model.Id.ToString()),
+                // new Claim("phone", user.Phone),
+                // new Claim("role", user.IsCompleted ? Policies.User : Policies.IncompleteUser),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+            var token = new JwtSecurityToken(
+                issuer: ComponentConfig.Jwt.Issuer,
+                audience: ComponentConfig.Jwt.Audience,
+                claims: claims,
+                expires: expireDate,
+                signingCredentials: credentials
+            );
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
